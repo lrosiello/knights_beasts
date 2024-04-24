@@ -6,11 +6,12 @@ public class Board {
     private Square[][] squares; // Matriz de casillas
     private int startX, startY; // Coordenadas de inicio del tablero
     private int squareSize; // Tamaño de cada casilla
+    
 
     public Board() {
-        startX = 300;
+        startX = 400;
         startY = 100;
-        squareSize = 50;
+        squareSize = 150;
         
         int rows = 10; // Número de filas
         int columns = 20; // Número de columnas
@@ -29,11 +30,19 @@ public class Board {
         }
     }
 
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int cameraX, int cameraY, int cameraWidth, int cameraHeight) {
         for (Square[] row : squares) {
             for (Square square : row) {
-                square.draw(g);
+                // Verifica si la casilla está dentro del área visible de la cámara
+                if (square.getX() >= cameraX && square.getX() < cameraX + cameraWidth &&
+                    square.getY() >= cameraY && square.getY() < cameraY + cameraHeight) {
+                    // Ajusta las coordenadas de la casilla para que se dibuje en la posición correcta en la pantalla
+                    int adjustedX = square.getX() - cameraX;
+                    int adjustedY = square.getY() - cameraY;
+                    square.draw(g, adjustedX, adjustedY);
+                }
             }
         }
     }
+
 }

@@ -20,6 +20,7 @@ public class Screen extends JFrame implements Runnable {
     private Graphics g;
     private Canvas canvas;
     private Thread thread;
+    private Camera camera;
     private boolean running = false;
     private MouseInput mouseInput;
     private Image backgroundImage;
@@ -33,6 +34,7 @@ public class Screen extends JFrame implements Runnable {
 
         canvas = new Canvas();
         mouseInput = new MouseInput();
+        camera = new Camera();
 
         canvas.setPreferredSize(new Dimension(1400, 800));
         canvas.setMaximumSize(new Dimension(1400, 800));
@@ -48,7 +50,7 @@ public class Screen extends JFrame implements Runnable {
     }
 
     private void update() {
-        // Actualiza la lógica del juego
+    	camera.centerOn(400, 100);
     }
 
     private void draw() {
@@ -57,8 +59,8 @@ public class Screen extends JFrame implements Runnable {
 
         //instancio el tablero
         Board board = new Board();
-		// Dibujar el tablero
-        board.draw(g);
+     // Dibujar el tablero usando las coordenadas de la cámara
+        board.draw(g, camera.getX(), camera.getY(), camera.getWidth(), camera.getHeight());
     }
 
     @Override

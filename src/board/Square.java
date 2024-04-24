@@ -19,15 +19,23 @@ public class Square {
 	        grassImage = Toolkit.getDefaultToolkit().getImage("src/images/grass.jpg");
 	    }
 
-	    public void draw(Graphics g) {
-	        g.drawImage(grassImage, x, y, size, size, null);
-	     // Dibujar el nombre en el centro del cuadrado
-	        g.drawString(name.getX() + ", " + name.getY(), x + size / 4, y + size / 2);
+	    public void draw(Graphics g, int adjustedX, int adjustedY) {
+	    	 g.drawImage(grassImage, adjustedX, adjustedY, size, size, null);
+	    	    // Dibujar el nombre en el centro del cuadrado
+	    	    g.drawString(name.getX() + ", " + name.getY(), adjustedX + size / 4, adjustedY + size / 2);
 	        
 	    }
 	    
 	    
 	    public SquareName getName() {
 	        return name;
+	    }
+	    
+	    public int getX() {
+	    	return x;
+	    }
+	    
+	    public int getY() {
+	    	return y;
 	    }
 }
